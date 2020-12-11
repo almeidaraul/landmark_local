@@ -114,10 +114,19 @@ def main():
     positions = []
 
     for triangulation in triangulations:
-        pprint(triangulation)
+        # pprint(triangulation)
         positions.append(calc_position(triangulation, landmarks, distances))
 
-    pprint(positions)
+    # pprint(positions)
+    if len(positions):
+        avg_position = [0, 0]
+        for p in positions:
+            avg_position[0] += p[0]
+            avg_position[1] += p[1]
+        avg_position = [c/len(positions) for c in avg_position]
+        print("\nAverage estimated position is ({:0.0f}, {:0.0f})".format(avg_position[0], avg_position[1]))
+    else:
+        print("\nRobot couldn't find enough landmarks to triangulate his own position")
 
 if __name__ == '__main__':
     main()
